@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Q from 'q';
 import MemberRow from './MemberRow';
 import MemberEntity from '../../api/memberEntity';
 import MemberAPI from '../../api/memberAPI';
@@ -17,15 +18,16 @@ class MemberPage extends React.Component<any , State> {
   }
 
   public componentWillMount() {
-    // var promise : Q.Promise<MemberEntity[]> = MemberAPI.getAllMembersAsync();
-    // promise.done(function(members: any){
-    //   this.setState({
-    //     members: members
-    //   });
-    // });
-    this.setState({
-      members: MemberAPI.getAllMembers()
+    var promise : Q.Promise<MemberEntity[]> = MemberAPI.getAllMembersAsync();
+    var self: any = this;
+    promise.done(function(members: MemberEntity[]){
+      self.setState({
+        members: members
+      });
     });
+    // this.setState({
+    //   members: MemberAPI.getAllMembers()
+    // });
   }
 
   public render() {
