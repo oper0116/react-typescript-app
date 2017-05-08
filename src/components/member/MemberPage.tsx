@@ -1,41 +1,33 @@
 import * as React from 'react';
-import * as Q from 'q';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import MemberRow from './MemberRow';
 import MemberEntity from '../../api/memberEntity';
-import MemberAPI from '../../api/memberAPI';
-
-interface State {
-  members: Array<MemberEntity>;
+import loadMembers from '../../actions/loadMembers';
+//
+//
+interface Props{
+  members?: Array<any>;
+  loadMembers: () => void;
 }
 
-class MemberPage extends React.Component<any , State> {
-  constructor(props: any) {
+class MemberPage extends React.Component<Props, {}> {
+  constructor(props: Props) {
     super(props);
-    // set initial state
-    this.state = {
-      members: []
-    };
   }
 
   public componentWillMount() {
-    var promise : Q.Promise<MemberEntity[]> = MemberAPI.getAllMembersAsync();
-    var self: any = this;
-    promise.done(function(members: MemberEntity[]){
-      self.setState({
-        members: members
-      });
-    });
-    // this.setState({
-    //   members: MemberAPI.getAllMembers()
-    // });
+    this.props.loadMembers();
   }
 
   public render() {
+    if (!this.props.members) {
+      return (<div>No Data</div>);
+    }
     return(
       <div className="row">
         <h2>Members Page</h2>
-        <Link to="/memberRigster">New Member</Link>
+        <Link to="/memberRegister">New Member</Link>
         <table className="table">
           <thead>
             <tr>
@@ -52,7 +44,7 @@ class MemberPage extends React.Component<any , State> {
           </thead>
           <tbody>
             {
-              this.state.members.map((member: MemberEntity) =>
+              this.props.members.map((member: MemberEntity) =>
                 <MemberRow key={member.id} member={member}/>
               )
             }
@@ -63,4 +55,22 @@ class MemberPage extends React.Component<any , State> {
   }
 }
 
-export default MemberPage;
+const mapStateToProps: any = (state: any) => {
+  return {
+    members: state.members
+  };
+};
+
+const mapDispatchToProps: any = (dispatch: any) => {
+  return {
+    loadMembers: () => {return dispatch(loadMembers())}
+  };
+};
+
+const ContainerMembersPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MemberPage);
+
+export default ContainerMembersPage;
+// export default MemberPage;

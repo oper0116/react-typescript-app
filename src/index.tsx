@@ -16,7 +16,7 @@ ReactDOM.render(
           <Route path="/member" component={MemberPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/topics" component={TopicsPage} />
-          <Route path="/memberRigster" component={MemberRegisterPage} />
+          <Route path="/memberRegister" component={MemberRegisterPage} />
         </App>
       </Switch>
   </Router>,
