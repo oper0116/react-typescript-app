@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Q from 'q';
+import {Link} from 'react-router-dom';
 import MemberRow from './MemberRow';
 import MemberEntity from '../../api/memberEntity';
 import MemberAPI from '../../api/memberAPI';
@@ -34,6 +35,7 @@ class MemberPage extends React.Component<any , State> {
     return(
       <div className="row">
         <h2>Members Page</h2>
+        <Link to="/memberRigster">New Member</Link>
         <table className="table">
           <thead>
             <tr>
