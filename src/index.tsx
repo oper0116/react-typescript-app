@@ -6,6 +6,7 @@ import HomePage from './components/home/HomePage';
 import MemberPage from './components/member/MemberPage';
 import AboutPage from './components/about/AboutPage';
 import TopicsPage from './components/topics/TopicsPage';
+import MemberRegisterPage from './components/memberRegister/MemberRegisterPage';
 
 ReactDOM.render(
   <Router>
@@ -15,6 +16,7 @@ ReactDOM.render(
           <Route path="/member" component={MemberPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/topics" component={TopicsPage} />
+          <Route path="/memberRigster" component={MemberRegisterPage} />
         </App>
       </Switch>
   </Router>,
